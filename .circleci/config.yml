@@ -15,6 +15,7 @@ jobs:
     executor: docker-publisher
     steps:
       - checkout
+      - maven/install
       - setup_remote_docker
       - run:
           name: Build Docker image
