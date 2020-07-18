@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  maven: circleci/maven@0.0.12
+  maven: circleci/maven@1.0.1
 
 executors:
   docker-publisher:
@@ -16,6 +16,9 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - run:
+          name: Compile Jar
+          command: mvn install
       - run:
           name: Build Docker image
           command: |
