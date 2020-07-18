@@ -8,7 +8,7 @@ executors:
     environment:
       IMAGE_NAME: chrishopkins53/tm470-circleci
     docker:
-      - image: circlceci/buildpack-deps:stretch
+      - image: circleci/buildpack-deps:stretch
 
 jobs:
   build:
