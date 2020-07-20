@@ -4,7 +4,7 @@ orbs:
   maven: circleci/maven@1.0.1
 
 jobs:
-  build:
+  build-java-docker:
     environment:
       IMAGE_NAME: chrishopkins53/tm470-circleci
     docker:
@@ -26,6 +26,7 @@ jobs:
           root: .
           paths:
             - ./image.tar
+
   publish-latest:
     environment:
       IMAGE_NAME: chrishopkins53/tm470-circleci
@@ -44,14 +45,33 @@ jobs:
             echo "$docker_password" | docker login --password-stdin --username "$docker_username"
             docker push $IMAGE_NAME:latest
 
+  run-rails:
+    docker:
+      - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
+    steps:
+      - checkout # pull down our git code.
+      - cd thm470-rails
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
+      - run:
+          name: Run Rails
+          command: bundle exec rails s
+
 workflows:
   maven_test:
     jobs:
       - maven/test # checkout, build, test, and upload test results
 
+  functional-test:
+    jobs:
+      - run-rails:
+
+
   build-master:
     jobs:
-      - build:
+      - build-java-docker:
           filters:
             branches:
               only: master
