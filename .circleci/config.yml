@@ -52,11 +52,11 @@ jobs:
     docker:
       - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
     steps:
-      - checkout # pull down our git code.
+      - checkout
       - ruby/install-deps
       - node/install-packages:
-        pkg-manager: yarn
-        cache-key: "yarn.lock"
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
       - command: bundle exec rails s
 
 workflows:
