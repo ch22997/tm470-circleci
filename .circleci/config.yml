@@ -57,7 +57,9 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           cache-key: "yarn.lock"
-      - command: bundle exec rails s
+      -run:
+        name: Start rails server
+        command: bundle exec rails s
 
 workflows:
   maven_test:
