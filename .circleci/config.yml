@@ -80,7 +80,7 @@ workflows:
               only: master
       - publish-latest:
           requires:
-            - build
+            - build-java-docker
           filters:
             branches:
               only: master
