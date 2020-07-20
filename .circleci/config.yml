@@ -52,13 +52,13 @@ jobs:
       - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
     steps:
       - checkout # pull down our git code.
-      - run:
-         - command: cd tm470-rails
-         - ruby/install-deps:
-         - node/install-packages:
-           pkg-manager: yarn
-           cache-key: "yarn.lock"
-         - command: bundle exec rails s
+      - ruby/install-deps:
+        working_directory: /tm470-rails
+      - node/install-packages:
+        working_directory: /tm470-rails
+        pkg-manager: yarn
+        cache-key: "yarn.lock"
+      - command: cd tm470-rails && bundle exec rails s
 
 workflows:
   maven_test:
