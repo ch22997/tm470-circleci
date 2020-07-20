@@ -66,7 +66,7 @@ workflows:
 
   functional-test:
     jobs:
-      - run-rails:
+      - run-rails
 
 
   build-master:
