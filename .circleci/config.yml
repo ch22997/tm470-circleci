@@ -57,7 +57,7 @@ jobs:
           version: '2.6.4'
       - run:
           name: Update bundler
-          command: gem update --system
+          command: gem update --system --no-document --quiet
       - run:
           name: Bundle install rails
           command: cd tm470-rails && bundle install --quiet
@@ -85,7 +85,7 @@ jobs:
           command: dockerize -wait http://localhost:8080 -timeout 5m
       - run:
           name: Bundle install test gems
-          command: cd functional-tests && bundle install
+          command: cd functional-tests && bundle install --quiet
       - run:
           name: Run tests
           command: cd functional-tests && bundle exec cucumber
