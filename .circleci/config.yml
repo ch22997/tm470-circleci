@@ -60,7 +60,7 @@ jobs:
           command: bundle -v
       - run:
           name: Install bundler
-          command: cd tm470-rails && bundle update --bundler
+          command: gem install bundler
       - run:
           name: Bundle install rails
           command: cd tm470-rails && bundle install --quiet
