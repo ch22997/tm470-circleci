@@ -47,37 +47,26 @@ jobs:
             echo "$docker_password" | docker login --password-stdin --username "$docker_username"
             docker push $IMAGE_NAME:latest
 
-  run-rails:
-    working_directory: ~/tm470-circleci/tm470-rails
+  run-automation-tests:
+    working_directory: ~/tm470-circleci/
     docker:
-      - image: circleci/ruby:2.6.4-node
+      - image: circleci/openjdk:latest
+      - image: circleci/ruby:2.6.4-node-browsers
     steps:
       - checkout:
-          path: ~/tm470-circleci
-      - ruby/install-deps
+      - ruby/install-deps:
+          app-dir: ~/tm470-circleci/tm470-rails
       - node/install-packages:
           pkg-manager: yarn
           app-dir: ~/tm470-circleci/tm470-rails
       - run:
           name: Start rails server
-          command: bundle exec rails s
-
-
-  run-java:
-    working_directory: ~/tm470-circleci/tm470-java
-    docker:
-      - image: circleci/openjdk:latest
-    steps:
-      - checkout
+          command: cd tm470-rails && bundle exec rails s
+          background: true
       - run:
           name: Start java app
           command: mvn spring-boot:run
-
-  run-automation-tests:
-    working_directory: ~/tm470-circleci/functional-tests
-    docker:
-      - image: circleci/ruby:2.6.4-node-browsers
-    steps:
+          background: true
       - run:
           name: install dockerize
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
