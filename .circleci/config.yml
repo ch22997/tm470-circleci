@@ -6,6 +6,10 @@ orbs:
   node: circleci/node@2
 
 jobs:
+  checkout-code:
+    steps:
+      - checkout
+
   build-java-docker:
     environment:
       IMAGE_NAME: chrishopkins53/tm470-circleci
@@ -67,6 +71,9 @@ workflows:
 
   functional-test:
     jobs:
+      - checkout-code
+      - run:
+          command: ls
       - run-rails
 
 
