@@ -57,7 +57,7 @@ jobs:
           version: '2.6.4'
       - run:
           name: Install bundler
-          command: yes | gem install bundler:2.1.4
+          command: cd tm470-rails && bundle --update
       - run:
           name: Bundle install rails
           command: cd tm470-rails && bundle install --quiet
