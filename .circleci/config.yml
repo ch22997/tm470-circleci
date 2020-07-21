@@ -48,12 +48,12 @@ jobs:
             docker push $IMAGE_NAME:latest
 
   run-rails:
-    working_directory: tm470-circleci/tm470-rails
+    working_directory: ~/tm470-circleci/tm470-rails
     docker:
       - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
     steps:
       - checkout:
-          path: project
+          path: ~/tm470-circleci
       - run:
           command: ls -a
       - run:
