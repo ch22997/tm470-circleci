@@ -57,6 +57,8 @@ jobs:
       - ruby/install:
           version: '2.6.4'
       - ruby/install-deps
+      - run:
+          command: ls -a
       - node/install-packages:
           app-dir: ~/tm470-circleci/tm470-rails
       - run:
