@@ -59,8 +59,6 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           app-dir: ~/tm470-circleci/tm470-rails/package.json
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
       - run:
           name: Start rails server
           command: bundle exec rails s
