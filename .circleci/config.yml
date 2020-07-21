@@ -50,15 +50,15 @@ jobs:
   run-rails:
     working_directory: ~/tm470-circleci/tm470-rails
     docker:
-      - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
+      - image: cimg/ruby:2.6-node # use a tailored CircleCI docker image.
     steps:
       - checkout:
           path: ~/tm470-circleci
-      - ruby/install:
-          version: '2.6.4'
+#      - ruby/install:
+#          version: '2.6.4'
       - ruby/install-deps
       - node/install-packages:
-          app-dir: ~/tm470-circleci/tm470-rails/package.json
+          app-dir: ~/tm470-circleci/tm470-rails/
       - run:
           name: Start rails server
           command: bundle exec rails s
