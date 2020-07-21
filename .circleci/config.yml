@@ -50,7 +50,7 @@ jobs:
             docker push $IMAGE_NAME:latest
 
   run-rails:
-    working_directory: ~/tm470-circlci/tm470-rails
+    working_directory: ~/tm470-circleci/tm470-rails
     docker:
       - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
     steps:
@@ -59,7 +59,7 @@ jobs:
       - run:
           command: pwd
       - checkout:
-          path: ~/tm470-circlci
+          path: ~/tm470-circleci
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
