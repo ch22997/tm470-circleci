@@ -53,7 +53,7 @@ jobs:
       - image: circleci/openjdk:latest
       - image: circleci/ruby:2.6.4-node-browsers
     steps:
-      - checkout:
+      - checkout
       - ruby/install-deps:
           app-dir: ~/tm470-circleci/tm470-rails
       - node/install-packages:
@@ -87,10 +87,7 @@ workflows:
 
   functional-test:
     jobs:
-      - run-rails
-      - run-java
       - run-automation-tests
-
 
   build-master:
     jobs:
