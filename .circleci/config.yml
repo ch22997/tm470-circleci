@@ -85,10 +85,10 @@ jobs:
             DOCKERIZE_VERSION: v0.3.0
       - run:
           name: Wait for rails
-          command: dockerize -wait http://run-rails:3000 -timeout 5m
+          command: dockerize -wait http://localhost:3000 -timeout 5m
       - run:
           name: Wait for java
-          command: dockerize -wait http://run-java:8000 -timeout 5m
+          command: dockerize -wait http://localhost:8000 -timeout 5m
 
 
 workflows:
