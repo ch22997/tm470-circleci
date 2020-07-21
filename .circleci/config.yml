@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   maven: circleci/maven@1.0.1
   ruby: circleci/ruby@1.0.5
-  node: circleci/node@2
+  node: circleci/node@3.0.1
 
 jobs:
 
@@ -58,6 +58,7 @@ jobs:
           version: '2.6.4'
       - ruby/install-deps
       - node/install-packages:
+          app-dir: ~/tm470-circleci/tm470-rails/package.json
           pkg-manager: yarn
           cache-key: "yarn.lock"
       - run:
