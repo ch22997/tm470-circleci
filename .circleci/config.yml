@@ -64,6 +64,15 @@ jobs:
           name: Start rails server
           command: bundle exec rails s
 
+  run-java:
+    working_directory: ~/tm470-circleci/tm470-java
+    docker:
+      - image: circleci/openjdk:latest
+    steps:
+      - maven/test:
+          command: spring-boot:run
+
+
 workflows:
   maven_test:
     jobs:
@@ -72,6 +81,7 @@ workflows:
   functional-test:
     jobs:
       - run-rails
+      - run-java
 
 
   build-master:
