@@ -55,15 +55,14 @@ jobs:
       - checkout
       - ruby/install:
           version: '2.6.4'
-
       - run:
           name: Install bundler
           command: >
-            sudo gem update --system
-              -d sudo gem uninstall bundler
-              -d sudo rm /usr/local/bin/bundle
-              -d sudo rm /usr/local/bin/bundler
-              -d sudo gem install bundler
+            gem update --system
+              -d gem uninstall bundler
+              -d rm /usr/local/bin/bundle
+              -d rm /usr/local/bin/bundler
+              -d gem install bundler
       - run:
           name: Bundle install rails
           command: cd tm470-rails && bundle install --quiet
