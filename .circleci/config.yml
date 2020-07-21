@@ -58,6 +58,7 @@ jobs:
           command: ls
       - run:
           command: pwd
+      - checkout
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
