@@ -63,6 +63,14 @@ jobs:
       - run:
           name: Start rails server
           command: bundle exec rails s
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Wait for rails
+          command: dockerize -wait http://localhost:3000 -timeout 1m
 
   run-java:
     working_directory: ~/tm470-circleci/tm470-java
@@ -73,6 +81,14 @@ jobs:
       - run:
           name: Start java app
           command: mvn spring-boot:run
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Wait for java
+          command: dockerize -wait http://localhost:8000 -timeout 1m
 
 
 workflows:
