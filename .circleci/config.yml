@@ -58,7 +58,8 @@ jobs:
           command: ls
       - run:
           command: pwd
-      - checkout
+      - checkout:
+          path: ~/tm470-circlci
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
