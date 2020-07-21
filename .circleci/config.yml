@@ -58,7 +58,7 @@ jobs:
           version: '2.6.4'
       - ruby/install-deps
       - node/install-packages:
-          app-dir: ~/tm470-circleci/tm470-rails/
+          app-dir: ~/tm470-circleci/tm470-rails
       - run:
           name: Start rails server
           command: bundle exec rails s
