@@ -54,8 +54,9 @@ jobs:
       - image: circleci/ruby:2.6.4-node-browsers
     steps:
       - checkout
-      - ruby/install-deps:
-          app-dir: ~/tm470-circleci/tm470-rails
+      - run:
+          name: Bundle install rails
+          command: cd tm470-rails && bundle install --quiet
       - node/install-packages:
           pkg-manager: yarn
           app-dir: ~/tm470-circleci/tm470-rails
