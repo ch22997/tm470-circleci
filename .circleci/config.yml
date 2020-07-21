@@ -7,6 +7,12 @@ orbs:
 
 jobs:
 
+  checkout-code:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+    steps:
+      - checkout
+
 
   build-java-docker:
     environment:
