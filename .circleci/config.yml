@@ -55,7 +55,7 @@ jobs:
 #      - checkout:
 #          path: ~/
       - run:
-          command: ls
+          command: ls -a
       - run:
           command: pwd
       - ruby/install-deps
