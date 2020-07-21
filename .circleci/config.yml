@@ -60,6 +60,7 @@ jobs:
       - run:
           command: ls -a
       - node/install-packages:
+          pkg-manager: yarn
           app-dir: ~/tm470-circleci/tm470-rails
       - run:
           name: Start rails server
