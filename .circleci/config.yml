@@ -57,8 +57,6 @@ jobs:
       - ruby/install:
           version: '2.6.4'
       - ruby/install-deps
-      - run:
-          command: ls -a
       - node/install-packages:
           pkg-manager: yarn
           app-dir: ~/tm470-circleci/tm470-rails
@@ -67,9 +65,9 @@ jobs:
           command: bundle exec rails s
 
 workflows:
-#  maven_test:
-#    jobs:
-#      - maven/test # checkout, build, test, and upload test results
+  maven_test:
+    jobs:
+      - maven/test # checkout, build, test, and upload test results
 
   functional-test:
     jobs:
