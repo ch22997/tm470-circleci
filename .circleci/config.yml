@@ -79,6 +79,7 @@ jobs:
     working_directory: ~/tm470-circleci/functional-tests
     docker:
       - image: circleci/ruby:2.6.4-node-browsers
+    steps:
       - run:
           name: install dockerize
           command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
