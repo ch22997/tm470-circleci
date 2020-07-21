@@ -50,7 +50,7 @@ jobs:
   run-automation-tests:
     working_directory: ~/tm470-circleci/
     docker:
-      - image: circleci/openjdk:stretch-browsers
+      - image: circleci/openjdk:8-jdk-node-browsers
     steps:
       - checkout
       - ruby/install:
