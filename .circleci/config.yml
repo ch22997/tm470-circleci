@@ -57,7 +57,7 @@ jobs:
           version: '2.6.4'
       - run:
           name: Update bundler
-          command: gem update --system --no-document --quiet
+          command: gem update --system --no-document --silent
       - run:
           name: Bundle install rails
           command: cd tm470-rails && bundle install --quiet
@@ -94,11 +94,17 @@ jobs:
 workflows:
   maven_test:
     jobs:
-      - maven/test # checkout, build, test, and upload test results
+      - maven/test:
+          filters:
+            branches:
+              ignore: master
 
   functional-test:
     jobs:
-      - run-automation-tests
+      - run-automation-tests:
+          filters:
+            branches:
+              ignore: master
 
   build-master:
     jobs:
