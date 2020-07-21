@@ -52,8 +52,8 @@ jobs:
     docker:
       - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
     steps:
-#      - checkout:
-#          path: ~/
+      - checkout:
+          path: ~/
       - run:
           command: ls -a
       - run:
@@ -67,9 +67,9 @@ jobs:
           command: bundle exec rails s
 
 workflows:
-  maven_test:
-    jobs:
-      - maven/test # checkout, build, test, and upload test results
+#  maven_test:
+#    jobs:
+#      - maven/test # checkout, build, test, and upload test results
 
   functional-test:
     jobs:
