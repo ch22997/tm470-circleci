@@ -2,15 +2,17 @@ version: 2.1
 
 orbs:
   maven: circleci/maven@1.0.1
+  ruby: circleci/ruby@1.0.5
+  node: circleci/node@3.0.1
 
 jobs:
-  build:
+
+  build-java-docker:
     environment:
       IMAGE_NAME: chrishopkins53/tm470-circleci
     docker:
       - image: circleci/openjdk:latest
     steps:
-      - checkout
       - setup_remote_docker
       - run:
           name: Compile Jar
@@ -26,6 +28,7 @@ jobs:
           root: .
           paths:
             - ./image.tar
+
   publish-latest:
     environment:
       IMAGE_NAME: chrishopkins53/tm470-circleci
@@ -44,20 +47,74 @@ jobs:
             echo "$docker_password" | docker login --password-stdin --username "$docker_username"
             docker push $IMAGE_NAME:latest
 
+  run-automation-tests:
+    working_directory: ~/tm470-circleci/
+    docker:
+      - image: circleci/openjdk:8-jdk-node-browsers
+    steps:
+      - checkout
+      - ruby/install:
+          version: '2.6.4'
+      - run:
+          name: Update bundler
+          command: gem update --system --no-document --silent
+      - run:
+          name: Bundle install rails
+          command: cd tm470-rails && bundle install --quiet
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: ~/tm470-circleci/tm470-rails
+      - run:
+          name: Start rails server
+          command: cd tm470-rails && bundle exec rails s
+          background: true
+      - run:
+          name: Start java app
+          command: mvn spring-boot:run
+          background: true
+      - run:
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Bundle install test gems
+          command: cd functional-tests && bundle install --quiet
+      - run:
+          name: Wait for rails
+          command: dockerize -wait http://localhost:3000 -timeout 5m
+      - run:
+          name: Wait for java
+          command: dockerize -wait http://localhost:8080 -timeout 5m
+      - run:
+          name: Run tests
+          command: cd functional-tests && bundle exec cucumber
+
+
 workflows:
   maven_test:
     jobs:
-      - maven/test # checkout, build, test, and upload test results
+      - maven/test:
+          filters:
+            branches:
+              ignore: master
+
+  functional-test:
+    jobs:
+      - run-automation-tests:
+          filters:
+            branches:
+              ignore: master
 
   build-master:
     jobs:
-      - build:
+      - build-java-docker:
           filters:
             branches:
               only: master
       - publish-latest:
           requires:
-            - build
+            - build-java-docker
           filters:
             branches:
               only: master
