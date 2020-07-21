@@ -6,9 +6,7 @@ orbs:
   node: circleci/node@2
 
 jobs:
-  checkout-code:
-    steps:
-      - checkout
+
 
   build-java-docker:
     environment:
@@ -56,6 +54,8 @@ jobs:
     docker:
       - image: cimg/ruby:2.7-node # use a tailored CircleCI docker image.
     steps:
+      - run:
+          command: ls
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
@@ -71,9 +71,6 @@ workflows:
 
   functional-test:
     jobs:
-      - checkout-code
-      - run:
-          command: ls
       - run-rails
 
 
