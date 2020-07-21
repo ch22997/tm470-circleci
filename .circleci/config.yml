@@ -7,13 +7,6 @@ orbs:
 
 jobs:
 
-  checkout-code:
-    docker:
-      - image: circleci/buildpack-deps:stretch
-    steps:
-      - checkout
-
-
   build-java-docker:
     environment:
       IMAGE_NAME: chrishopkins53/tm470-circleci
@@ -63,8 +56,6 @@ jobs:
           command: ls
       - run:
           command: pwd
-      - checkout:
-          path: ~/tm470-circleci
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
@@ -76,7 +67,6 @@ jobs:
 workflows:
   maven_test:
     jobs:
-      - checkout-code
       - maven/test # checkout, build, test, and upload test results
 
   functional-test:
