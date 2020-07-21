@@ -71,9 +71,7 @@ workflows:
 
   functional-test:
     jobs:
-      - run-rails:
-          requires:
-            - checkout-code
+      - run-rails
 
 
   build-master:
