@@ -50,7 +50,7 @@ jobs:
   run-rails:
     working_directory: ~/tm470-circleci/tm470-rails
     docker:
-      - image: cimg/ruby:2.6-node # use a tailored CircleCI docker image.
+      - image: cimg/ruby:2.6.4-node # use a tailored CircleCI docker image.
     steps:
       - checkout:
           path: ~/tm470-circleci
