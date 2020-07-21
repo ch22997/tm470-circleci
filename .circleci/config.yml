@@ -54,10 +54,8 @@ jobs:
     steps:
       - checkout:
           path: ~/tm470-circleci
-      - run:
-          command: ls -a
-      - run:
-          command: pwd
+      - ruby/install:
+          version: '2.6.4'
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
