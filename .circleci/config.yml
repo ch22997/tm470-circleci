@@ -50,10 +50,11 @@ jobs:
   run-automation-tests:
     working_directory: ~/tm470-circleci/
     docker:
-      - image: circleci/openjdk:latest
-      - image: circleci/ruby:2.6.4-node-browsers
+      - image: circleci/openjdk:latest-browsers
     steps:
       - checkout
+      - ruby/install:
+          version: '2.6.4'
       - run:
           name: Bundle install rails
           command: cd tm470-rails && bundle install --quiet
