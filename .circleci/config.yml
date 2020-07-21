@@ -69,8 +69,9 @@ jobs:
     docker:
       - image: circleci/openjdk:latest
     steps:
-      - maven/test:
-          command: spring-boot:run
+      - run:
+          name: Start java app
+          command: mvn spring-boot:run
 
 
 workflows:
