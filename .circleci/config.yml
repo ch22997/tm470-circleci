@@ -52,6 +52,7 @@ jobs:
     working_directory: ~/tm470-circleci/
     docker:
       - image: circleci/openjdk:8-jdk-node-browsers
+      - image: mongo
     steps:
       - checkout
       - ruby/install:
