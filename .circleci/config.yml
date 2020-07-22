@@ -50,6 +50,8 @@ jobs:
 
   run-automation-tests:
     working_directory: ~/tm470-circleci/
+    environment:
+      SPRING_PROFILES_ACTIVE: 'prod'
     docker:
       - image: circleci/openjdk:8-jdk-node-browsers
       - image: mongo
