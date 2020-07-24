@@ -5,6 +5,7 @@ orbs:
   ruby: circleci/ruby@1.0.5
   node: circleci/node@3.0.1
   sonarcloud: sonarsource/sonarcloud@1.0.0
+  heroku: circleci/heroku@1.1.1
 
 jobs:
 
@@ -133,6 +134,13 @@ workflows:
       - publish-latest:
           requires:
             - build-java-docker
+          filters:
+            branches:
+              only: master
+
+  heroku-deploy:
+    jobs:
+      - heroku/deploy-via-git:
           filters:
             branches:
               only: master
