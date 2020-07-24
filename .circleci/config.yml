@@ -106,9 +106,13 @@ jobs:
       - sonarcloud/scan
 
 workflows:
-  maven_test:
+  code_test:
     jobs:
       - maven/test:
+          filters:
+            branches:
+              ignore: master
+      - code-quality:
           filters:
             branches:
               ignore: master
