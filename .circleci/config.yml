@@ -5,7 +5,7 @@ orbs:
   ruby: circleci/ruby@1.0.5
   node: circleci/node@3.0.1
   sonarcloud: sonarsource/sonarcloud@1.0.0
-  heroku: circleci/heroku@0.0.10.
+  heroku: circleci/heroku@1.1.1
 
 jobs:
 
