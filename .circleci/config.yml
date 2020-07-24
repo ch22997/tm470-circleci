@@ -4,6 +4,7 @@ orbs:
   maven: circleci/maven@1.0.1
   ruby: circleci/ruby@1.0.5
   node: circleci/node@3.0.1
+  sonarcloud: sonarsource/sonarcloud@1.0.0
 
 jobs:
 
@@ -94,6 +95,15 @@ jobs:
           name: Run tests
           command: cd functional-tests && bundle exec cucumber
 
+  code-quality:
+    docker:
+      - image: circleci/openjdk:8-jdk-node
+      steps:
+        - checkout
+        - run:
+            name: Compile Jar
+            command: mvn install -DskipTests
+        - sonarcloud/scan
 
 workflows:
   maven_test:
