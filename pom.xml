@@ -12,5 +12,10 @@
     <modules>
         <module>tm470-java</module>
     </modules>
+    <properties>
+        <sonar.projectKey>ch22997_tm470-circleci</sonar.projectKey>
+        <sonar.organization>ch22997</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
 
 </project>
